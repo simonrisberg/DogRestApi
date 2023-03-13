@@ -26,14 +26,17 @@ public class SpringSecurityConfig {
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui.html",
-            "/webjars/**"
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "swagger-ui/**",
+            "/swagger-ui.html/**"
     };
 
     @Bean
     public SecurityFilterChain appSecurity(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
+                .authorizeRequests().requestMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
